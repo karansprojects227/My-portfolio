@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chhkaran.com</title>
+    
+    <!--- Tailwind CSS --->
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!--- Internal CSS --->
+    
+    <style>
+    body{
+      margin: -0px;
+      overflow:hidden:
+    }
+    canvas{
+      display:block;
+    }
+    .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    </style>
+    
+</head>
+    
+<body class="m-0">
+  
+  <!---- Start Coding... ---->
+  
+  <!--- portol Effect --->
+  <div class="portol-div w-screen h-screen bg-black hidden overflow-hidden">
+    <div class="portol w-full h-full rounded-full">
+      <img class="w-full h-full object-cover rounded-full" src="images/portol.png" alt="">
+    </div>
+  </div>
+  
+  <!--- main conatiner --->
+    
+  <div class="main h-[100vh] bg-[url('images/background.jpg')] bg-cover bg-center h-screen w-screen relative overflow-hidden">
+    
+    
+    <!--- Access Ganted Or Not --->
+    
+    <div>
+      <div>
+        <h1 class="access absolute w-screen text-center text-[10vw]
+        text-green-500 top-[3%] left-1/2 -translate-x-1/2 hidden">Access Granted !</h1>
+      </div>
+      <div>
+        <h1 class="portol-text absolute w-screen text-center text-[10vw] top-[8.5%] left-1/2 -translate-x-1/2 text-green-500 hidden">Main Portol Opening ...</h1>
+      </div>
+      <div>
+        <div class="finding-icon absolute h-[6rem] text-white top-[3%] left-1/2 -translate-x-1/2"><img class="w-full h-full object-cover" src="images/findingicon.png" alt=""></div>
+      </div>
+    </div>
+    
+    <!--- Tracker & Locator --->
+    
+    <div>
+      <img class="tracker absolute top-1/5 left-1/2 -translate-x-1/2 h-[5rem]" src="images/tracker.png" alt="">
+      <img class="locator absolute hidden top-1/5 left-1/2 -translate-x-1/2 h-[5rem]"
+      src="images/locator.png" alt="">
+    </div>
+    
+  </div>
+  
+  <!---- End Coding... ---->
+  
+  <!--- TextPlugin JS File Link --->
+  
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+  
+  <!--- GSAP JS File Link --->
+    
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+  <!---- JS File Link ---->
+  
+  <script type="module" src="script.js"></script>
+  
+</body>
+</html>
