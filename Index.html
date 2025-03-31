@@ -21,209 +21,84 @@
 <body>
 
   <!--- 👇 Main Container (Holds all Sections) --->
-  <div class="main">
-
-    <!--- ✅ 1st Section: Profile, Intro & Earth Animation --->
-    <section class="m-0 h-[100vh] bg-[#222]">  <!-- Full height, dark background -->
-
-      <!--- Home Menu (Sticky at the Top) --->
-      <div class="home sticky w-screen bg-[#fff1] text-[1.5rem] text-white font-semibold">
-        <div>
-            <i class="ri-home-fill"></i>  <!-- Home Icon -->
-        </div>
-        <div>
-            <a href="index.html">Home</a>
-        </div>
-      </div>
-
-      <!--- Profile Section --->
-      <div class="pro h-1/2 relative">  <!-- Half screen height -->
-
-        <!--- Profile Picture (Centered Circle) --->
-        <div class="pro-div absolute top-[12.8%] left-1/2 -translate-x-1/2">
-          <div class="w-[35vw] h-[35vw] bg-white rounded-full overflow-hidden">
-            <img class="w-[33.5vw] h-[33.5vw] object-cover rounded-full" src="images/profile.jpg" alt="subbu">
-          </div>
-          <div>
-            <img class="location absolute h-[1.8rem] top-[97.5%] left-1/2
-            -translate-x-1/2" src="images/locator.png" alt="">
-          </div>
-        </div>
-
-        <!--- Earth Animation (Behind Profile) --->
-        <div class="earth-div absolute bottom-[-8%] left-1/2 -translate-x-1/2 h-[55vw] w-[55vw] rounded-full">
-          <canvas class="earth bg-transparent h-[125vw] w-[63vw]"></canvas>  <!-- 3D Earth Canvas -->
-        </div>
-
-      </div>
-
-      <!--- Introduction Text (Animated) --->
-      <div class="intro h-1/2">
-        <div>
-          <h1 class="user text-[7vw] text-white text-show opacity-0 scale-0">HIII USER,</h1>
-          <h1 class="my text-[7vw] text-white text-show opacity-0 scale-0">MY NAME IS KARAN KUMAR...</h1>
-        </div>
-
-        <div>
-          <h2 class="text-[6vw] text-white text-show opacity-0 scale-0">POSITION... <span class="arrow fixed"><i class="ri-arrow-down-line"></i></span></h2>
-          <h2 class="glow-text text-[6vw] text-white text-show opacity-0 scale-0">AS A SOFTWARE ENGINEER</h2>
-          <h3 class="text-[5vw] text-white text-show opacity-0 glow-text scale-0">IN WEB DEVELOPMENT</h3>
-        </div>
-
-        <!--- Logos (Technology Stack) --->
-        <div class="logo-contain">
-          <img class="h-[3rem] text-show opacity-0 scale-0" src="images/logo.png" alt="">
-          <img class="h-[3rem] text-show opacity-0 scale-0" src="images/logo.png" alt="">
-          <img class="h-[3rem] text-show opacity-0 scale-0" src="images/logo.png" alt="">
-        </div>
-
-      </div>
+  <div class="main bg-black relative">
+    <canvas class="d-block absolute top-0 left-0 z-[999]" id="particleCanvas"></canvas>
+    <!--- (1) section --->
+    
+    <section class="h-[100vh]">
       
     </section>
-
-    <!--- ✅ 2nd Section: Dimensional Mirror & Black Hole Transition --->
-    <section class="h-[100vh] dimensional-mirror relative z-[9]">
-
-      <!--- Black Hole Effect (For Transition) --->
-      <div class="absolute top-0 left-0 black-hole w-screen h-full z-[9] overflow-hidden">
-        <div class="top absolute top-0 w-full h-1/2"></div>
-        <div class="bottom absolute bottom-0 w-full h-1/2"></div>
-      </div>
-
-      <!--- 🔥 Past vs Future Career Vision --->
-      <div class="absolute top-0 left-0 container w-full h-full">
-
-        <!--- Current Self --->
-        <div class="side curr w-screen h-[48.36%] relative">
-          <div class="highlight h-full absolute -left-[100%]"></div>
-          <h2></h2>
-          <p></p>
-          <img src="images/software.png" alt="Current Avatar" class="bg-center bg-cover profile-image">
-        </div>
-
-        <!--- Tagline --->
-        <h1 class="tag text-[1.6rem] text-center">What I Am ? Wanna To Become !</h1>
-
-        <!--- Future Self --->
-        <div class="side reach w-screen h-[48.36%] relative">
-          <div class="highlight h-full absolute -left-[100%]"></div>
-
-          <!--- Glitch Effect --->
-          <svg width="0" height="0">
-            <defs>
-              <filter id="waveFilter">
-                <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="turbulence"/>
-                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="10"/>
-              </filter>
-            </defs>
-          </svg>
-
-          <h2></h2>
-          <p></p>
-          <img src="images/ceo.png" alt="Future Avatar" class="bg-center bg-cover profile-image">
-        </div>
-      </div>
-
+    
+    <!--- (2) section --->
+    
+    <section class="h-[100vh]">
+      
     </section>
-
-    <!--- ✅ 3rd Section: Future Innovation & Menu --->
+    
+    <!--- (3) section --->
     
     <section class="h-[100vh] relative overflow-hidden">
       
-      <!--- Futuristic Design --->
-      
-      <div class="future w-full h-full bg-black overflow-hidden relative">
-        
-        <div class="stars"></div>
-        <div class="planet"></div>
-        <div class="nebula"></div>
-        <div class="meteor"></div>
-        
-        // mini discription
-        <div class="mini-description top-[20%] left-[20%] absolute  w-[15rem] h-[10rem] rounded-full z-[9]"></div>
-        
-        <div class="bubble-box w-[200%] h-[50%] overflow-hidden relative">
-          
-          <div class="bubble bubble1 w-[200px] h-[400px] rounded-full">
-            
-          </div>
-          <div class="bubble bubble2 w-[200px] h-[400px] rounded-full">
-            
-          </div>
-          <div class="bubble bubble3 w-[200px] h-[400px] rounded-full">
-            
-          </div>
-        </div>
-        
-        <div class="bubble-box w-[200%] h-[50%] overflow-hidden relative">
-          <div class="bubble bubble4 w-[200px] h-[400px] rounded-full">
-            
-          </div>
-          <div class="bubble bubble5 w-[200px] h-[400px] rounded-full">
-            
-          </div>
-          <div class="bubble bubble6 w-[200px] h-[400px] rounded-full">
-            
-          </div>
-        </div>
-        
-      </div>
-      
       <!--- Menu --->
       
-      <div class="openmenu w-[7rem] h-[7rem] bg-black absolute rounded-full top-0 left-1/2 -translate-x-1/2 bg-transparent flex flex-col items-center justify-center">
+      <div class="openmenu w-[7rem] h-[7rem] absolute rounded-full top-0
+      right-[2%] flex flex-col items-center justify-center z-[9999]">
         <h5 class="text-sm">Click To Open Menu</h5>
         <i class="text-[2rem] open ri-menu-line"></i>
       </div>
-
+      
     </section>
-
+    
   </div>
   
-  <!--- Detailed Explaination Container --->
-        
-  <div class="bg-layer w-screen h-screen bg-black absolute top-0 left-0 z-[999] text-white hidden">
-    <div class="w-full h-[10%] heading absolute top-0">
-      <div class="next">
-        <button type="button" class="bg-black rounded-full">
-                Next
-        </button>
-      </div>
-      <h1 class="text-[3rem]"></h1>
-      <div class="close text-[2rem]">
-        <i class="ri-close-line"></i>
-      </div>
+  <!--- Portol Box --->
+  
+  <div class="portol-container w-screen h-[100vh] w-screen relative overflow-hidden hidden bg-black">
+    
+    <!--- 3d Bubble --->
+    
+    <div class="info-bubble absolute w-screen h-[100vh] bg-[rgba(0,0,0,0.2)]">
+      
     </div>
-    <div class="w-full h-[90%] detailed absolute top-[10%]">
-      <p class="text-justify"></p>
-    </div>
+    
+    <!--- Menu --->
+      
+    <div class="openmenu w-[7rem] h-[7rem] bg-black absolute rounded-full
+    top-[83%] left-[80%] -translate-x-1/2 bg-transparent flex flex-col
+    items-center justify-center">
+        <h5>Click To Close</h5>
+        <i class="text-[2rem] close-portol ri-close-line"></i>
+      </div>
+      
   </div>
   
   <!--- Menu Box --->
   
-  <div class="menu relative w-screen h-[100vh] bg-[#1e293b] overflow-hidden hidden">
+  <div class="menu relative w-screen h-[100vh] bg-[#1e293b] hidden overflow-hidden">
     <div class="stars"></div>
     <div class="planet"></div>
     <div class="nebula"></div>
     <div class="meteor"></div>
-    <div class="openmenu w-[7rem] h-[7rem] bg-transparent absolute rounded-full top-0 left-1/2 -translate-x-1/2 flex flex-col justify-center items-center">
+    <div class="openmenu w-[7rem] h-[7rem] bg-transparent absolute rounded-full
+    top-0 right-[2%] flex flex-col justify-center items-center">
         <h5>Click To Close</h5>
         <i class="text-[2rem] close ri-close-line"></i>
       </div>
     
         <div class="sub-menu w-full h-full text-[2rem] text-white">
-          <a class="skill w-[80%] text-center  rounded-full bg-[#0f172a]" href="#">Skill</a>
-          <a class="about w-[80%] text-center  rounded-full bg-[#0f172a]" href="#">About & Contact Us</a>
+          <a class="home w-[80%] text-center  rounded-full bg-[#0f172a]"
+          href="#">Home</a>
+          <a class="about w-[80%] text-center  rounded-full bg-[#0f172a]"
+          href="#">About & Contact Us</a>
           <a class="extra w-[80%] text-center  rounded-full bg-[#0f172a]" href="#">Extra Features</a>
         </div>
       </div>
-  
+      
   <!--- ✅ GSAP, Locomotive, and Custom JavaScript Files --->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
   <script type="module" src="script.js"></script>
-
 </body>
 </html>

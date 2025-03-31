@@ -1,458 +1,90 @@
-// ✅ Three.js Library Import (3D Graphics ke liye)
+
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
+import * as CANNON from 'https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js';
 
-// ✅ GSAP Plugins Register (Smooth Animations ke liye)
-gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(TextPlugin);
+// particles effect on click
+(() => {
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d");
 
-
-// 3D Earth Function (3D Sphere Earth Render & Animation)
-(function create3DEarth() {
-  // ✅ Scene, Camera, and Renderer Initialization
-  const scene = new THREE.Scene(); // 🎭 3D Scene Create
-  
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); // 🎥 Camera Define
-  camera.position.z = 3.25; // ✅ Camera ka position set
-
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // ✅ Anti-aliasing & Transparency enabled
-  renderer.setSize(window.innerWidth, window.innerHeight); // ✅ Renderer ko window ke size ke equal set karo
-
-  // ✅ Renderer ko webpage me inject karna
-  const canvasEarth = document.querySelector(".earth"); 
-  const { width, height } = canvasEarth.getBoundingClientRect();
-  renderer.setSize(width, height);
-  canvasEarth.replaceWith(renderer.domElement); // ✅ Earth Canvas ko replace karo
-  
-  // ✅ Background Transparent Set
-  scene.background = null;
-
-  // ✅ Earth Shape (Sphere Geometry)
-  const geometry = new THREE.SphereGeometry(1, 130, 130);
-
-  // ✅ Load Earth Texture (High-Quality Image Map)
-  const textureLoader = new THREE.TextureLoader();
-  const earthTexture = textureLoader.load(
-    'images/earth.png',
-    function (texture) {
-      texture.flipY = false;
-      console.log("✅ Texture Loaded Successfully");
-    },
-    undefined,
-    function (error) {
-      console.error("❌ Error Loading Texture:", error);
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = document.documentElement.scrollHeight; // Pure page ki height
     }
-  );
+    resizeCanvas();
 
-  // ✅ Texture ko Sphere par Apply karo
-  const material = new THREE.MeshBasicMaterial({ map: earthTexture });
-  const earth = new THREE.Mesh(geometry, material);
-  scene.add(earth); // ✅ Earth Scene me Add
+    const gravity = 0.1;
+    const friction = 0.99;
+    let particles = [];
 
-  // ✅ Lighting Setup
-  const light = new THREE.DirectionalLight(0xffffff, 1);
-  light.position.set(2, 2, 5);
-  scene.add(light);
-
-  // ✅ Earth Rotate & Render Function
-  function animate() {
-    requestAnimationFrame(animate); // ✅ Animation Loop
-    earth.rotation.y += 0.02; // ✅ Earth Rotation Set
-    renderer.render(scene, camera); // ✅ Scene Render
-  }
-
-  animate(); // ✅ Animation Start
-})();
-
-// Intro Text Animation (Welcome Text Animations)
-(function textAnimation() {
-  gsap.to(".text-show", {
-    opacity: 1,
-    scale: 1,
-    rotate: 360,
-    duration: 3,
-    ease: "power2.out",
-    stagger: 0.1,
-    onComplete: function () {
-      gsap.to(".text-show", {
-        opacity: 0,
-        scale: 0,
-        rotate: -360,
-        duration: 3,
-        ease: "power2.out",
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: ".intro",
-          start: "top top",
-          end: "80% top",
-          toggleActions: "play reverse play reverse",
-          scrub: true
+    class Particle {
+        constructor(x, y, radius, color, velocity) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.color = color;
+            this.velocity = velocity;
+            this.alpha = 1;
         }
-      });
-
-      // ✅ Arrow Animation
-      gsap.to(".arrow", {
-        y: 5,
-        y: -5,
-        duration: 1,
-        ease: "power2.out",
-        repeat: -1,
-        yoyo: true,
-        color: "red",
-      });
-
-      // ✅ Glowing Text Effect
-      gsap.to(".glow-text", {
-        textShadow: "0px 0px 10px yellow",
-        y: 5,
-        y: -5,
-        duration: 1,
-        ease: "power2.out",
-        repeat: -1,
-        yoyo: true
-      });
-    }
-  });
-})();
-
-// Profile & Earth Bouncing Effect (Subtle Animation)
-(function bounceProfileAndEarth() {
-  gsap.to(".pro", {
-    y: -10,
-    duration: 2,
-    ease: "power2.out",
-    repeat: -1,
-    yoyo: true
-  });
-})();
-
-// Home Icon Hover Effects (Interactive Hover Animations)
-(function homeIconHoverEffect() {
-  let icon = document.querySelector(".home a");
-
-  icon.addEventListener("mouseenter", () => {
-    gsap.to(icon, {
-      backgroundColor: "red",
-      color: "white",
-      duration: 0.5,
-      ease: "power2.out",
-      yoyo: true
-    });
-  });
-})();
-
-// Tag Glow Effect (Neon Text Effect)
-(function tagGlow() {
-  gsap.to(".tag", {
-    textShadow: "0px 0px 10px red",
-    duration: 0.8,
-    ease: "power2.out",
-    repeat: -1,
-    yoyo: true
-  });
-})();
-
-// Black Hole Animation (Transition Between Current & Future Me)
-(function blackHoleAnimation() {
-  gsap.to([".black-hole .top", ".black-hole .bottom"], {
-    y: (i, target) => target.classList.contains("top") ? "-100%" : "100%", // Different animations based on class
-    duration: 1,
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: ".black-hole",
-      start: "top 30%",
-      end: "top top",
-      scrub: true,
-      toggleActions: "play reverse play reverse"
-    },
-    onComplete: function () {
-      // ✅ Change Text on Scroll
-      gsap.to(".curr h2", { text: "Current Me", duration: 2, ease: "power2.out" });
-      gsap.to(".curr p", { text: "Software Engineer | Web & App Developer", duration: 2, ease: "power2.out" });
-
-      gsap.to(".reach h2", { text: "Future Me", duration: 2, ease: "power2.out" });
-      gsap.to(".reach p", { text: "Tech CEO | AI Visionary", duration: 2, ease: "power2.out" });
-
-      let lastScroll = 0;
-      ScrollTrigger.create({
-        trigger: ".black-hole",
-        start: "top top",
-        onUpdate: (self) => {
-          let currentScroll = self.scroll();
-          if (currentScroll > lastScroll) {
-            gsap.set(".container", { zIndex: 99 });
-          } else {
-            gsap.set(".container", { zIndex: "auto" });
-          }
-          lastScroll = currentScroll;
+        draw() {
+            ctx.save();
+            ctx.globalAlpha = this.alpha;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+            ctx.restore();
         }
-      });
-    }
-  });
-})();
+        update() {
+            this.velocity.y += gravity;
+            this.velocity.x *= friction;
+            this.velocity.y *= friction;
+            this.x += this.velocity.x;
+            this.y += this.velocity.y;
 
-// Side Hover Effects (Smooth Side Animations)
-(function sideHoverEffects() {
-  let positions = document.querySelectorAll(".side");
-
-  positions.forEach((side) => {
-    let highlight = side.querySelector(".highlight");
-
-    side.addEventListener("mouseenter", () => {
-      gsap.to(side, {
-        scale: 1.1,
-        duration: 0.4,
-        ease: "power2.out",
-        yoyo: true
-      });
-
-      gsap.to(highlight, {
-        width: "20px",
-        left: "100%",
-        duration: 0.6,
-        ease: "power2.out",
-        yoyo: true
-      });
-    });
-
-    side.addEventListener("mouseleave", () => {
-      gsap.to(side, { scale: 1, duration: 0.4, ease: "power2.out", yoyo: true });
-      gsap.to(highlight, { left: "-100%", duration: 0.6, ease: "power2.out", yoyo: true });
-    });
-  });
-})();
-
-// create buubles with text Dynamically
-(function createBubbles() {
-    const bubbleTexts = [
-        { heading: "Hello", paragraph: "This is a friendly greeting." },
-        { heading: "Welcome", paragraph: "Glad to have you here!" },
-        { heading: "Bubble 1", paragraph: "This is the first bubble text." },
-        { heading: "Bubble 2", paragraph: "Another dynamic bubble text." },
-        { heading: "Dynamic", paragraph: "Change text dynamically with JS!" },
-        { heading: "Awesome!", paragraph: "Make your UI more engaging!" }
-    ];
-
-    for (let i = 1; i <= 6; i++) {
-        createSingleBubble(i);
+            if (this.y + this.radius >= canvas.height) {
+                this.velocity.y = -this.velocity.y * 0.8;
+            }
+            if (this.x - this.radius <= 0 || this.x + this.radius >= canvas.width) {
+                this.velocity.x = -this.velocity.x;
+            }
+            this.alpha -= 0.005;
+        }
     }
 
-    function createSingleBubble(index) {
-        // **Scene Setup**
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
-        let bubblebox = document.querySelector(`.bubble${index}`);
-        if (!bubblebox) return;
-
-        const { width, height } = bubblebox.getBoundingClientRect();
-        renderer.setSize(width, height);
-        bubblebox.replaceWith(renderer.domElement);
-
-        // **Lighting**
-        const light1 = new THREE.PointLight(0xff00ff, 1, 100);
-        light1.position.set(5, 5, 5);
-        scene.add(light1);
-
-        const light2 = new THREE.PointLight(0x00ffff, 1, 100);
-        light2.position.set(-5, -5, -5);
-        scene.add(light2);
-
-        // **Bubble Geometry**
-        const bubbleMaterial = new THREE.MeshPhysicalMaterial({
-            color: 0xffffff,
-            transparent: true,
-            opacity: 0.8,
-            roughness: 0.1,
-            metalness: 0.8,
-            emissive: 0x5500ff,
-            emissiveIntensity: 0.5,
-            clearcoat: 1
-        });
-
-        const bubble = new THREE.Mesh(new THREE.SphereGeometry(1, 64, 64), bubbleMaterial);
-        scene.add(bubble);
-
-        // **Create Text Texture**
-        function createTextTexture(text) {
-            const textCanvas = document.createElement("canvas");
-            textCanvas.width = 512;
-            textCanvas.height = 256;
-            const ctx = textCanvas.getContext("2d");
-
-            ctx.clearRect(0, 0, textCanvas.width, textCanvas.height);
-            ctx.fillStyle = "white";
-            ctx.font = "Bold 50px Arial";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText(text, textCanvas.width / 2, textCanvas.height / 2);
-
-            const textTexture = new THREE.CanvasTexture(textCanvas);
-            textTexture.needsUpdate = true;
-            return textTexture;
+    function createParticles(x, y) {
+        for (let i = 0; i < 50; i++) {
+            const radius = Math.random() * 5 + 2;
+            const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            const velocity = {
+                x: (Math.random() - 0.5) * 5,
+                y: (Math.random() - 0.5) * 5
+            };
+            particles.push(new Particle(x, y, radius, color, velocity));
         }
+    }
 
-        // **Add Text Sprite**
-        const spriteMaterial = new THREE.SpriteMaterial({
-            map: createTextTexture(bubbleTexts[index - 1].heading),
-            transparent: true
-        });
-
-        const textSprite = new THREE.Sprite(spriteMaterial);
-        textSprite.scale.set(1.5, 0.75, 1);
-        textSprite.position.set(0, 0, 1.1);
-        scene.add(textSprite);
-
-        camera.position.z = 3;
-
-        // **Squash & Stretch Animation**
-        function squashBubble() {
-            gsap.to(bubble.scale, {
-                duration: 1,
-                y: 0.5,
-                repeat: 1,
-                yoyo: true,
-                ease: "elastic.out(1, 0.3)",
-                onComplete: squashBubble
-            });
-        }
-        squashBubble();
-
-        // **Render Loop**
-        function animate() {
-            requestAnimationFrame(animate);
-            bubble.rotation.y += 0.01;
-            bubble.rotation.x += 0.005;
-            renderer.render(scene, camera);
-        }
-        animate();
-        
-        // Select All Bubbles
-var bubblesbox = document.querySelectorAll(".bubble-box");
-
-// **Bubble Movement Animation**
-var bubblemoving = gsap.to(bubblesbox, {
-    x: "-50%", // Using `x` for better performance instead of `left`
-    duration: 5,
-    ease: "power2.out",
-    yoyo: true,
-    repeat: -1
-});
-
-// **Mini Description Element**
-let mini = document.querySelector(".mini-description");
-
-// **Bubble Hover Event (Fixed)**
-
-let minidetails = [
-  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.Voluptatum iusto deleniti ratione nam reprehenderit blanditiis animi in voluptates a, laborum sed minus rem explicabo illum corrupti hic ad dignissimos sunt.",
-  "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum iusto deleniti ratione nam reprehenderit blanditiis animi in voluptates a, laborum sed minus rem explicabo illum corrupti hic ad dignissimos sunt.",
-  "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum iusto deleniti ratione nam reprehenderit blanditiis animi in voluptates a, laborum sed minus rem explicabo illum corrupti hic ad dignissimos sunt.",
-  "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum iusto deleniti ratione nam reprehenderit blanditiis animi in voluptates a, laborum sed minus rem explicabo illum corrupti hic ad dignissimos sunt.",
-  "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum iusto deleniti ratione nam reprehenderit blanditiis animi in voluptates a, laborum sed minus rem explicabo illum corrupti hic ad dignissimos sunt.",
-  "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum iusto deleniti ratione nam reprehenderit blanditiis animi in voluptates a, laborum sed minus rem explicabo illum corrupti hic ad dignissimos sunt."];
-
-renderer.domElement.addEventListener("mouseenter", (event) => {
-  mini.textContent = minidetails[index];
-  // Position & Show Mini Description
-  positionBubble(event);
-  gsap.to(mini, {
-    display:"block",
-    duration: 0.1,
-    ease: "power2.out"
-  });
-})
-
-renderer.domElement.addEventListener("mousemove", (event) => {
-   positionBubble(event);
-});
-
-renderer.domElement.addEventListener("mouseleave",() => {
-  // Hide Mini Description
-  gsap.to(mini, {
-    display:"none",
-    duration: 0.1,
-    ease: "power2.out"
-  });
-});
-
-function positionBubble(event) {
-  let x = event.clientX;
-  let y = event.clientY;
-  mini.style.left = `${x -113}px`;
-  mini.style.top = `${y-150}px`; // ✅ Position above the element
-}
-
-bubblesbox.forEach(bubble => {
-    bubble.addEventListener("mouseenter", (event) => {
-        bubblemoving.pause(); // ✅ Stops movement on hover
-    });
-
-    bubble.addEventListener("mouseleave", () => {
-        bubblemoving.resume(); // ✅ Continues from where it stopped
-    });
-});
-// **Bubble Click Event**
-renderer.domElement.addEventListener("click", () => {
-            var layer = document.querySelector(".bg-layer");
-            var h1 = document.querySelector(".heading h1");
-            var p = document.querySelector(".detailed p");
-        
-            // Set text dynamically
-            h1.textContent = bubbleTexts[index - 1].heading;
-            p.textContent = bubbleTexts[index - 1].paragraph;
-            
-            let currScrollPosition = window.scrollY;
-            
-            // **Hide .main smoothly**
-            gsap.to(".main", { 
-              display:"none",
-              duration:.05,
-              ease:"power2.out"
-            });
-            
-            // ** Show Layer smoothly **
-            gsap.to(layer, { 
-              display:"block", 
-              duration: 0.05,
-              ease:"power2.out"
-            });
-            
-            // Click on Close icon
-            document.querySelector(".close i").addEventListener("click", () => {
-              
-              // Show Main Container
-              gsap.to(".main", {
-                display:"block", 
-                duration: 0.05,
-                ease:"power2.out"
-              });
-              
-              // Restore scroll Position
-              setTimeout(() => {
-                requestAnimationFrame(() => {
-                    window.scrollTo(0, currScrollPosition);
-                });
-            }, 50); // ✅ Tiny delay ensures browser has time to render
-              
-              // Hide Layer
-              gsap.to(layer, {
-                display:"none", 
-                duration: 0.05,
-                ease:"power2.out"
-              });
-               
-            });
-        });
-        
-        // **Resize Event**
-        window.addEventListener("resize", () => {
-            const { width, height } = bubblebox.getBoundingClientRect();
-            renderer.setSize(width, height);
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
+    function animate() {
+        requestAnimationFrame(animate);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((particle, index) => {
+            if (particle.alpha > 0) {
+                particle.update();
+                particle.draw();
+            } else {
+                particles.splice(index, 1);
+            }
         });
     }
+
+    animate();
+
+    window.addEventListener("resize", resizeCanvas);
+    document.body.addEventListener("click", (event) => {
+        createParticles(event.clientX, event.clientY + window.scrollY);
+    });
+
 })();
 
 // **Menu Animation**
@@ -464,7 +96,8 @@ renderer.domElement.addEventListener("click", () => {
     let lastScrollPosition = 0;
     let menuOpen = false
     
-    gsap.from(".openmenu", { y: "-100%", duration: 2, yoyo: true, repeat: -1, ease: "power2.out" });
+    gsap.from(".openmenu", { x: "120%", duration: 2, yoyo: true, repeat: -1,
+    ease: "power2.out" });
     
     // **Function to Open Menu**
     function openMenu() {
@@ -484,7 +117,7 @@ renderer.domElement.addEventListener("click", () => {
             menuOpen = true;
     
             // Animate next page text (Open Animation)
-            gsap.from(".skill", {
+            gsap.from(".home", {
                 x: -500,
                 duration: 1.5,
                 ease: "power2.out"
@@ -503,7 +136,7 @@ renderer.domElement.addEventListener("click", () => {
     
     // **Function to Close Menu**
     function closeMenu() {
-        gsap.to(".menu .skill", {
+        gsap.to(".menu .home", {
             x: -500,
             duration: 1.5,
             ease: "power2.out"
@@ -521,7 +154,7 @@ renderer.domElement.addEventListener("click", () => {
             ease: "power2.out",
             onComplete: function() {
                 // Reset all elements to default position
-                gsap.set(".menu .skill", { x: 0 });
+                gsap.set(".menu .home", { x: 0 });
                 gsap.set(".menu .about", { x: 0 });
                 gsap.set(".menu .extra", { y: 0 });
     
@@ -554,4 +187,435 @@ renderer.domElement.addEventListener("click", () => {
     
 })();
 
-// ✅ **End of Scripting** ✅
+// **Create Background for Multiple Sections
+(() => { 
+  const sections = document.querySelectorAll("section"); const scenes = []; const planetColors = [0x00ff00, 0x0000ff, 0xff0000];
+
+sections.forEach((section, index) => { 
+  const scene = new THREE.Scene(); const camera = new THREE.PerspectiveCamera(75, section.clientWidth / section.clientHeight, 0.1, 1000); camera.position.z = 6; const renderer = new THREE.WebGLRenderer({ antialias: true }); renderer.setSize(section.clientWidth, section.clientHeight); section.appendChild(renderer.domElement);
+
+function createStars() {
+  const starGeometry = new THREE.BufferGeometry();
+  const starVertices = Array.from({ length: 10000 }, () => (Math.random() - 0.5) * 2000);
+  starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+  scene.add(new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xffffff, size: 1 })));
+}
+createStars();
+
+const planetTexture = new THREE.TextureLoader().load('images/earth.png');
+
+function createPlanet(size, positionX, glowColor) {
+  const geometry = new THREE.SphereGeometry(size, 32, 32);
+  const material = new THREE.MeshStandardMaterial({ map: planetTexture });
+  const planet = new THREE.Mesh(geometry, material);
+  planet.position.x = positionX;
+
+  const glowGeometry = geometry.clone();
+  const glowMesh = new THREE.Mesh(glowGeometry, new THREE.MeshBasicMaterial({ color: glowColor, transparent: true, opacity: 0.3 }));
+  glowMesh.scale.set(1.2, 1.2, 1.2);
+  planet.add(glowMesh);
+
+  scene.add(planet);
+  return planet;
+}
+
+const planet = createPlanet(1.5, 0, planetColors[index % planetColors.length]);
+
+const light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(5, 5, 5);
+scene.add(light);
+
+let skillSets = [
+  { impacts: "Foundational Tech", skills: "HTML , CSS , JS" },
+  { impacts: "Interactive Tech", skills: "Three.js , GSAP , React" },
+  { impacts: "Future Tech", skills: "AI , Cloud Computing , BCI" }
+];
+
+function createTextTexture(title, skills) {
+  const scaleFactor = 4;
+  const textCanvas = document.createElement("canvas");
+  textCanvas.width = 1024 * scaleFactor;
+  textCanvas.height = 512 * scaleFactor;
+  const ctx = textCanvas.getContext("2d");
+
+  ctx.clearRect(0, 0, textCanvas.width, textCanvas.height);
+  ctx.shadowColor = "rgba(255, 255, 255, 0.8)";
+  ctx.shadowBlur = 15 * scaleFactor;
+  ctx.fillStyle = "white";
+  ctx.strokeStyle = "red";
+  ctx.lineWidth = 10 * scaleFactor;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.font = `Bold ${112 * scaleFactor}px Arial`;
+  ctx.strokeText(title, textCanvas.width / 2, textCanvas.height / 3);
+  ctx.fillText(title, textCanvas.width / 2, textCanvas.height / 3);
+  ctx.font = `Bold ${60 * scaleFactor}px Arial`;
+  ctx.strokeText(skills, textCanvas.width / 2, (textCanvas.height / 3) * 2);
+  ctx.fillText(skills, textCanvas.width / 2, (textCanvas.height / 3) * 2);
+
+  const textTexture = new THREE.CanvasTexture(textCanvas);
+  textTexture.minFilter = THREE.LinearFilter;
+  textTexture.magFilter = THREE.NearestFilter;
+  textTexture.anisotropy = 16;
+  textTexture.needsUpdate = true;
+
+  return textTexture;
+}
+
+const textTexture = createTextTexture(skillSets[index].impacts, skillSets[index].skills);
+const spriteMaterial = new THREE.SpriteMaterial({ map: textTexture, transparent: true });
+const textSprite = new THREE.Sprite(spriteMaterial);
+textSprite.scale.set(3, 1.5, 1);
+textSprite.position.set(0, 0, 2);
+scene.add(textSprite);
+
+function animate() {
+  requestAnimationFrame(animate);
+  planet.rotation.y += 0.01;
+  renderer.render(scene, camera);
+}
+
+const floatAnimation = gsap.to([planet.position, textSprite.position], {
+  y: "+=1.5",
+  duration: 3,
+  repeat: -1,
+  yoyo: true,
+  ease: "sine.inOut"
+});
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+let isHovering = false;
+const main = document.querySelector(".main");
+let isClick = false;
+let lastScrollPosition = 0;
+
+// hover on planet
+window.addEventListener("mouseenter", (event) => {
+  const rect = section.getBoundingClientRect();
+  mouse.x = ((event.clientX - rect.left) / section.clientWidth) * 2 - 1;
+  mouse.y = -((event.clientY - rect.top) / section.clientHeight) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObject(planet);
+
+  if (intersects.length > 0) {
+    if (!isHovering) {
+      isHovering = true;
+      floatAnimation.pause();
+      gsap.to(planet.scale, { x: 1.3, y: 1.3, z: 1.3, duration: 0.5, ease: "power2.out" });
+      gsap.to(textSprite.position, { z: 4, duration: 0.5, ease: "power2.out" });
+    }
+  } else {
+    if (isHovering) {
+      isHovering = false;
+      floatAnimation.resume();
+      gsap.to(planet.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "power2.out" });
+      gsap.to(textSprite.position, { z: 2, duration: 0.5, ease: "power2.out" });
+    }
+  }
+});
+
+// Click on Planet to Open Portol
+window.addEventListener("click", (event) => {
+  const rect = section.getBoundingClientRect();
+  const mouse = {
+    x: ((event.clientX - rect.left) / section.clientWidth) * 2 - 1,
+    y: -((event.clientY - rect.top) / section.clientHeight) * 2 + 1,
+  };
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObject(planet, true); // `true` to check children also
+  if (intersects.length > 0) {
+    if (!isClick) {
+      lastScrollPosition = window.scrollY; // Store scroll position
+      
+      // zoom in Planet Effect
+      gsap.to(camera.position,{
+        z:1,
+        duration:1,
+        ease:"power2.out",
+        onComplete:() => {
+          // Hide `.main` smoothly
+      gsap.to(".main", {
+        duration: 0.3,
+        onComplete: () => {
+          document.querySelector(".main").style.display = "none";
+        },
+      });
+
+      // Show portol-container
+      gsap.set(".portol-container", { display: "block"});
+      gsap.to(".portol-container", {duration: 0.5 });
+      
+      (function initBubbleScene() {
+  let scene = new THREE.Scene();
+  let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 0, 15);
+
+  let renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  const portol = document.querySelector(".portol-container");
+  portol.appendChild(renderer.domElement);
+
+  let world = new CANNON.World();
+  world.gravity.set(0, -0.02, 0);
+
+  let light = new THREE.PointLight(0xffffff, 1.5);
+  light.position.set(10, 10, 10);
+  scene.add(light);
+
+  let bubbles = [];
+  for (let i = 0; i < 50; i++) {
+    let geometry = new THREE.SphereGeometry(Math.random() * 1.5 + 0.8, 64, 64);
+    let material = new THREE.MeshPhysicalMaterial({
+      color: 0x88ccff,
+      roughness: 0,
+      metalness: 0,
+      transmission: 0.9, // Transparent Glass Effect
+      thickness: 1,
+      clearcoat: 1,
+    });
+
+    let bubble = new THREE.Mesh(geometry, material);
+    let x = (Math.random() - 0.5) * 20;
+    let y = Math.random() * 10 - 5;
+    let z = (Math.random() - 0.5) * 20;
+    bubble.position.set(x, y, z);
+    scene.add(bubble);
+
+    let shape = new CANNON.Sphere(geometry.parameters.radius);
+    let body = new CANNON.Body({ mass: 0.1, shape });
+    body.position.set(x, y, z);
+    world.addBody(body);
+
+    bubbles.push({ mesh: bubble, body });
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    world.step(1 / 60);
+    bubbles.forEach((bubble) => {
+      bubble.mesh.position.copy(bubble.body.position);
+    });
+    renderer.render(scene, camera);
+  }
+
+  animate();
+})();
+
+      (function initBubbleScene() {
+  let scene = new THREE.Scene();
+  let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 0, 15);
+
+  let renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  const portol = document.querySelector(".portol-container");
+  portol.appendChild(renderer.domElement);
+
+  let world = new CANNON.World();
+  world.gravity.set(0, -0.02, 0);
+
+  let light = new THREE.PointLight(0xffffff, 1.5);
+  light.position.set(10, 10, 10);
+  scene.add(light);
+
+  let bubbles = [];
+  for (let i = 0; i < 50; i++) {
+    let geometry = new THREE.SphereGeometry(Math.random() * 1.5 + 0.8, 64, 64);
+    let material = new THREE.MeshPhysicalMaterial({
+      color: 0x88ccff,
+      roughness: 0,
+      metalness: 0,
+      transmission: 0.9, // Transparent Glass Effect
+      thickness: 1,
+      clearcoat: 1,
+    });
+
+    let bubble = new THREE.Mesh(geometry, material);
+    let x = (Math.random() - 0.5) * 20;
+    let y = Math.random() * 10 - 5;
+    let z = (Math.random() - 0.5) * 20;
+    bubble.position.set(x, y, z);
+    scene.add(bubble);
+
+    let shape = new CANNON.Sphere(geometry.parameters.radius);
+    let body = new CANNON.Body({ mass: 0.1, shape });
+    body.position.set(x, y, z);
+    world.addBody(body);
+
+    bubbles.push({ mesh: bubble, body });
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    world.step(1 / 60);
+    bubbles.forEach((bubble) => {
+      bubble.mesh.position.copy(bubble.body.position);
+    });
+    renderer.render(scene, camera);
+  }
+
+  animate();
+})();
+
+      // Create info Bubbles
+      (() => { 
+  const container = document.querySelector(".info-bubble"); 
+  if (!container) { 
+    console.error("Container not found!"); 
+    return; 
+  }
+
+  // **Scene & Camera Setup**
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.z = 6;
+
+  // **Renderer Setup**
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.shadowMap.enabled = true;
+  container.appendChild(renderer.domElement);
+
+  // **Lighting Setup**
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+  scene.add(ambientLight);
+
+  const pointLight = new THREE.PointLight(0xffffff, 2, 100);
+  pointLight.position.set(5, 5, 5);
+  pointLight.castShadow = true;
+  scene.add(pointLight);
+
+  // **Environment Reflection Map**
+  const textureLoader = new THREE.CubeTextureLoader();
+  const envMap = textureLoader.load([
+      'path/px.jpg', 'path/nx.jpg',
+      'path/py.jpg', 'path/ny.jpg',
+      'path/pz.jpg', 'path/nz.jpg'
+  ]);
+  scene.environment = envMap;
+
+  // **Bubble Material (Glass Effect)**
+  const bubbleMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0x0055ff,
+      transparent: true,
+      opacity: 0.8,
+      roughness: 0.3,
+      metalness: 0.2,
+      transmission: 0.9, // Glass-like effect
+      envMap: envMap,
+      envMapIntensity: 1.5
+  });
+
+  // Creating the main big bubble
+  const bigBubble = new THREE.Mesh(new THREE.SphereGeometry(2, 64, 64), bubbleMaterial);
+  bigBubble.position.set(0, 0, 0);
+  scene.add(bigBubble);
+
+  // Creating the small bubble at the left bottom
+  const smallBubble = new THREE.Mesh(new THREE.SphereGeometry(0.5, 64, 64), bubbleMaterial);
+  smallBubble.position.set(-1.5, -1.5, 0.5);
+  scene.add(smallBubble);
+
+  // **Text Inside the Big Bubble**
+  const textArray = ["HTML", "CSS", "JavaScript", "Tailwind CSS", "PHP",
+  "MySQL"];
+  let textIndex = 0;
+
+  const textCanvas = document.createElement("canvas");
+  const textContext = textCanvas.getContext("2d");
+  textCanvas.width = 512;
+  textCanvas.height = 256;
+  textContext.font = "50px Arial";
+  textContext.fillStyle = "white";
+  textContext.textAlign = "center";
+  textContext.fillText(textArray[textIndex], 256, 128);
+
+  const textTexture = new THREE.CanvasTexture(textCanvas);
+  const textMaterial = new THREE.SpriteMaterial({ map: textTexture });
+  const textSprite = new THREE.Sprite(textMaterial);
+  textSprite.scale.set(2.5, 1.2, 1);
+  textSprite.position.set(0, 0, 2.1);
+  scene.add(textSprite);
+
+  function updateText() {
+    textIndex = (textIndex + 1) % textArray.length;
+    textContext.clearRect(0, 0, textCanvas.width, textCanvas.height);
+    textContext.fillText(textArray[textIndex], 256, 128);
+    textTexture.needsUpdate = true;
+  }
+
+  setInterval(updateText, 2000);
+
+  // **Animation Loop**
+  function animate(time) {
+      requestAnimationFrame(animate);
+      const scaleFactor = 1 + Math.sin(time * 0.001) * 0.02;
+      bigBubble.scale.set(scaleFactor, scaleFactor, scaleFactor);
+      smallBubble.scale.set(scaleFactor * 0.9, scaleFactor * 0.9, scaleFactor * 0.9);
+      bigBubble.rotation.y += 0.005;
+      smallBubble.rotation.y += 0.008;
+      renderer.render(scene, camera);
+  }
+  animate(0);
+
+  // **Window Resize Handler**
+  window.addEventListener("resize", () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+  });
+
+})();
+      
+      isClick = true;
+      
+      // Close Portol Logic
+      document.querySelector(".portol-container .close-portol").addEventListener("click", () => {
+    
+    gsap.set(camera.position,{
+      z:6,
+      duration:.01,
+      ease:"power2.out"
+    });
+    
+    gsap.to(".portol-container", {
+      duration:.5,
+      ease:"power2.out",
+      onComplete:function(){
+        document.querySelector(".portol-container").style.display = "none";
+      }
+    });
+    
+    gsap.to(main, {
+      duration:.5,
+      ease:"power2.out",
+      onComplete:function(){
+        main.style.display = "block";
+         // Restore scroll position
+        window.scrollTo(0, lastScrollPosition);
+      }
+    });
+
+    isClick = false;
+  });
+        }
+      });
+    }
+  }
+});
+
+animate();
+
+window.addEventListener('resize', () => {
+  renderer.setSize(section.clientWidth, section.clientHeight);
+  camera.aspect = section.clientWidth / section.clientHeight;
+  camera.updateProjectionMatrix();
+});
+
+scenes.push({ scene, renderer });
+
+}); })();
+
