@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">  <!-- Character encoding set to UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Responsive design for all devices -->
+    <title>Chhkaran.com</title>  <!-- Website Title -->
+
+    <!--- Locomotive Scroll CSS (Smooth Scrolling Effect) --->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
+
+    <!--- Tailwind CSS (Utility-based CSS Framework) --->
+    
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!--- Remix Icons (For Icons like Home, Arrows, etc.) --->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--- Custom CSS File --->
+    
+    <style>
+    
+    /*--- loading CSS  ---*/
+      
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, #000 60%, #111);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      transition: opacity 1s ease-out;
+    }
+    .typewriter {
+      color: white;
+      font-size: 20px;
+      margin-bottom: 20px;
+      border-right: 2px solid white;
+      width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 3s steps(30, end) forwards, blink 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 260px; }
+    }
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: white; }
+    }
+    .rocket {
+      width: 80px;
+      height: 160px;
+      border-radius:100%;
+      background:
+      url('https://plus.unsplash.com/premium_photo-1733678582566-339d89b3e029?q=80&w=1064&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')
+      no-repeat center;
+      background-size: contain;
+      position: absolute;
+      bottom: 40px;
+      animation: launch 4s ease-in forwards;
+    }
+    @keyframes launch {
+      0% { transform: translateY(0); }
+      90% { transform: translateY(-90vh); }
+      100% { transform: translateY(-150vh); opacity: 0; }
+    }
+      section:nth-child(1){
+        background:#222;
+      }
+      .home{
+        height:8vh;
+        background:#fff1;
+        padding:1rem 1.5rem;
+        font-size:6vw;
+      }
+      .home a{
+        padding:.5rem 1.5rem;
+        border-radius:100px;
+      }
+      .home-bottom{
+        height:92vh;
+      }
+      .pro-div{
+        top:4vh;
+      }
+      .pro-div div{
+        width:35vw;
+        height:35vw;
+      }
+      .pro-div div img{
+        width:33.5vw;
+        height:33.5vw;
+      }
+      .earth-div{
+        top:15vh;
+      }
+      canvas{
+      width:80vw;
+      height:150vw;
+    }
+      .intro{
+        padding:1.5rem;
+      }
+      .intro h1 , h2 ,h3,.logo-contain img{
+        scale:0;
+        opacity:0;
+        color:#ffff;
+        line-height:6.3vw;
+        letter-spacing:.1rem;
+        word-spacing:.1rem;
+      }
+      .intro div h1{
+        font-size:7vw;
+      }
+      .intro h2{
+        font-size:6vw;
+      }
+      .intro h3{
+        font-size:5vw;
+      }
+      .logo-contain{
+        width:70%;
+      }
+      .logo-contain img{
+        width:8vh;
+      }
+      section:nth-child(2){
+        padding:1rem;
+      }
+      .container{
+        border-radius:15px;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+      }
+      .side {
+        width:100%;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+        position: relative;
+        transition: all 0.5s ease-in-out;
+      }
+      .curr,.reach{
+        height:48.35%;
+      }
+      .curr{
+        background: rgba(0, 0, 50, 0.8);
+      }
+      .curr h2, .reach h2{
+        opacity:1;
+        scale:1;
+      }
+      .reach {
+        background: rgba(50, 0, 50, 0.8);
+      }
+      .highlight{
+        left:-100%;
+      }
+      .profile-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 3px solid white;
+        transition: transform 0.5s ease-in-out;
+      }
+      @keyframes glitch {
+        0% { filter: hue-rotate(0deg); transform: translateX(0px); }
+        25% { filter: hue-rotate(30deg); transform: translateX(5px); }
+        50% { filter: hue-rotate(0deg); transform: translateX(0px); }
+        75% { filter: hue-rotate(-30deg); transform: translateX(-5px); }
+        100% { filter: hue-rotate(0deg); transform: translateX(0px); }
+      }
+      .profile-image:hover {
+        animation: glitch 0.3s infinite;
+      }
+      .tag{
+        -webkit-text-stroke:2px black;
+        color:transparent;
+        background:white;
+        font-size:1.6rem;
+      }
+      .curr .highlight {
+        background:rgba(0, 255, 255, 1);  /* Neon Cyan */
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 
+                     0 0 20px rgba(0, 255, 255, 0.6);
+        background-size: 300% 300%;
+        animation: gradientGlow 2s infinite alternate;
+        filter: url(#waveFilter);
+        mix-blend-mode: difference;
+        opacity: 0.8;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .reach .highlight {
+        background: rgba(57, 255, 20, 1);  /* Neon Green */
+        text-shadow: 0 0 10px rgba(57, 255, 20, 0.8), 
+                     0 0 20px rgba(57, 255, 20, 0.6);
+                     background-size: 300% 300%;
+        animation: gradientGlow 2s infinite alternate;
+        filter: url(#waveFilter);
+        mix-blend-mode: difference;
+        opacity: 0.8;
+        transition: opacity 0.3s ease-in-out;
+      }
+      
+      @keyframes gradientGlow {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+      }
+      
+      /*--- Black Hole Top and Bottom Sections ---*/
+
+    .black-hole {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9;
+      overflow: hidden;
+    }
+
+    /*--- Top Half of Black Hole ---*/
+    .black-hole .top {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 50%;
+      background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, transparent 100%);
+      box-shadow: 0px -20px 50px rgba(0, 0, 0, 0.9);
+    }
+
+    /*--- Bottom Half of Black Hole ---*/
+    .black-hole .bottom {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 50%;
+      background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, transparent 100%);
+      box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.9);
+    }
+      section:nth-child(3){
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    section:nth-child(3) .future{
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .inno{
+      -webkit-text-stroke:2px white;
+      color:transparent;
+      width:100%;
+      margin-top:1rem;
+      font-size:12vw;
+      letter-spacing:.1rem;
+      top:45%;
+      text-align:center;
+      font-weight:bold;
+    }
+    .planet {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, #ff007f, transparent);
+        border-radius: 50%;
+        top: 15%;
+        left: 70%;
+        animation: float 6s infinite alternate ease-in-out;
+    }
+    @keyframes float {
+        from { transform: translateY(0) scale(1); }
+        to { transform: translateY(-30px) scale(1.1); }
+    }
+    .nebula {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(255, 0, 255, 0.7), transparent);
+        border-radius: 50%;
+        top: 50%;
+        left: 10%;
+        animation: nebula-pulse 8s infinite alternate;
+    }
+    @keyframes nebula-pulse {
+        from { transform: scale(0.8); opacity: 0.6; }
+        to { transform: scale(1.2); opacity: 1; }
+    }
+    .meteor {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        top: 10%;
+        left: 90%;
+        animation: meteor-fall 3s infinite linear;
+    }
+    @keyframes meteor-fall {
+        from { transform: translateX(0) translateY(0); opacity: 1; }
+        to { transform: translateX(-200px) translateY(200px); opacity: 0; }
+    }
+    .mini-description{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:1rem 2rem;
+      line-height:1rem;
+      display:none;
+      overflow:auto;
+      top:20%;
+      left:20%;
+      z-index:9;
+      height:15rem;
+      width:10rem;
+    }
+    .bubble-box{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      width:200%;
+      height:50%;
+    }
+    .bubble{
+      width:200px;
+      height:400px;
+    }
+    .openmenu{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      width:7rem;
+      height:7rem;
+      top:0;
+      left:50%;
+      transform:translateX(-50%);
+    }
+    .main .openmenu h5{
+      color: rgba(0, 255, 255, 1);  /* Neon Cyan */
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 
+                   0 0 20px rgba(0, 255, 255, 0.6);
+    }
+    .openmenu .open{
+      color: rgba(255, 20, 147, 1);  /* Neon Pink */
+      text-shadow: 0 0 10px rgba(255, 20, 147, 0.8), 
+                   0 0 20px rgba(255, 20, 147, 0.6);
+    }
+    .openmenu .close{
+      color: rgba(57, 255, 20, 1);  /* Neon Green */
+      text-shadow: 0 0 10px rgba(57, 255, 20, 0.8), 
+                   0 0 20px rgba(57, 255, 20, 0.6);
+    }
+    .openmenu h5{
+      color: rgba(191, 0, 255, 1);  /* Neon Purple */
+      text-shadow: 0 0 10px rgba(191, 0, 255, 0.8), 
+                   0 0 20px rgba(191, 0, 255, 0.6);
+    }
+    .menu .sub-menu{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      font-size:2rem;
+    }
+    .menu .sub-menu a{
+      width:80%;
+      background:#0f172a;
+      padding:2rem 2.5rem;
+      margin-bottom:2rem;
+      box-shadow: 0 0 50px rgba(0, 255, 204, 1);
+      transition: transform 0.5s ease;
+      animation: glow 4s infinite alternate;
+      border:1px solid #ffff;
+    }
+    @keyframes glow {
+        from { box-shadow: 0 0 50px rgba(0, 255, 204, 1); }
+        to { box-shadow: 0 0 70px rgba(255, 0, 255, 1); }
+    }
+    .open,.close{
+      font-size:2rem;
+    }
+    .bg-layer{
+      top:0;
+      left:0;
+      z-index:999;
+    }
+    .bg-layer .heading{
+      height:10%;
+      top:0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:0 1rem;
+    }
+    .bg-layer .heading h1{
+      font-size:2rem;
+    }
+    .bg-layer .heading .close{
+      font-size:1rem;
+    }
+    .bg-layer .detailed{
+      height:90%;
+      top:10%;
+      padding:1.5rem;
+      overflow:auto;
+    }
+    .detailed p{
+      line-height:1.2rem;
+    }
+    .next button{
+      padding:.5rem 1rem;
+    }
+    .menu{
+      height:100vh;
+      background:#1e293b;
+    }
+    </style>
+    
+</head>
+
+<body>
+  
+  <!--- 👇 Laiding Page --->
+  
+  <div class="loading-container h-screen absolute">
+    <div id="loader">
+      <div class="typewriter">Preparing your ticket to space...</div>
+      <div class="rocket"></div>
+    </div>
+  </div>
+  
+  <!--- 👇 Main Container (Holds all Sections) --->
+  <div class="main overflow-hidden">
+    
+    <!--- ✅ 1st Section: Profile, Intro & Earth Animation --->
+    
+    <section class="m-0 w-screen h-screen">
+      
+      <!--- Home Menu (Sticky at the Top) --->
+      <div class="home w-screen text-white font-semi-bold sticky flex justify-between items-center">
+        <div>
+            <i class="ri-home-fill"></i>
+        </div>
+        <div>
+            <a class="rounded-full" href="index.html">Home</a>
+        </div>
+      </div>
+
+      <div class="home-bottom">
+        
+        <!--- Profile Section --->
+      <div class="pro h-1/2 relative flex justify-center items-center">
+        
+        <!--- Profile Picture (Centered Circle) --->
+        <div class="pro-div absolute">
+          <div class="bg-white rounded-full overflow-hidden flex justify-center items-center">
+            <img class="w-[33.5vw] h-[33.5vw] object-cover rounded-full" src="images/profile.jpg" alt="subbu">
+          </div>
+        </div>
+
+        <!--- Earth Animation (Behind Profile) --->
+        <div class="earth-div relative rounded-full bg-transparent">
+          <canvas class="earth"></canvas>
+        </div>
+        
+      </div>
+
+      <!--- Introduction Text (Animated) --->
+      <div class="intro flex flex-col justify-center h-1/2 relative">
+        
+        <div>
+          <h1 class="user text-show">Hii Users,</h1>
+          <h1 class="my text-show">My Name Is Karan Kumar...</h1>
+        </div>
+        
+        <div class="mt-4">
+          <h2 class="text-show">POSITION... <span class="arrow"><i
+          class="arrow ri-arrow-down-line"></i></span></h2>
+          <h2 class="text-show glow-text">As A Software Engineer</h2>
+          <h3 class="text-show glow-text">In Web Development</h3>
+        </div>
+        
+        <div class="logo-contain flex justify-between items-center mt-4">
+          <img class="object-cover rounded-full text-show" src="https://img.freepik.com/free-vector/hacker-operating-laptop-cartoon-icon-illustration-technology-icon-concept-isolated-flat-cartoon-style_138676-2387.jpg?t=st=1743622289~exp=1743625889~hmac=b31282983e379066e501df5274a9ca9c47415c848dde9cf66d3332e070cb5982&w=1380" alt="">
+          <img class="object-cover rounded-full text-show" src="https://img.freepik.com/free-vector/hacker-operating-laptop-cartoon-icon-illustration-technology-icon-concept-isolated-flat-cartoon-style_138676-2387.jpg?t=st=1743622289~exp=1743625889~hmac=b31282983e379066e501df5274a9ca9c47415c848dde9cf66d3332e070cb5982&w=1380" alt="">
+          <img class="object-cover rounded-full text-show" src="https://img.freepik.com/free-vector/hacker-operating-laptop-cartoon-icon-illustration-technology-icon-concept-isolated-flat-cartoon-style_138676-2387.jpg?t=st=1743622289~exp=1743625889~hmac=b31282983e379066e501df5274a9ca9c47415c848dde9cf66d3332e070cb5982&w=1380" alt="">
+        </div>
+        
+      </div>
+      
+      </div>
+      
+    </section>
+    
+    <!--- ✅ 2nd Section: Dimensional Mirror & Black Hole Transition --->
+    
+    <section class="w-screen h-screen bg-black dimensional-mirror relative">
+      
+      <!--- Black Hole Effect (For Transition) --->
+      <div class="absolute black-hole w-full h-full overflow-hidden">
+        <div class="top absolute top-0 w-full h-1/2"></div>
+        <div class="bottom absolute bottom-0 w-full h-1/2"></div>
+      </div>
+
+      <!--- 🔥 Past vs Future Career Vision --->
+      <div class="absolute container flex flex-col justify-between top-0 left-0 flex relative overflow-hidden w-full h-full">
+        
+        <!--- Current Self --->
+        <div class="side curr w-screen relative">
+          <div class="highlight h-full absolute -left-[100%]"></div>
+          <h2></h2>
+          <p></p>
+          <img
+          src="https://images.unsplash.com/photo-1610563166150-b34df4f3bcd6?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c29mdHdhcmUlMjBlbmdpbmVlcmluZ3xlbnwwfHwwfHx8MA%3D%3D"
+          alt="Current Avatar" class="bg-center bg-cover profile-image mt-2">
+        </div>
+
+        <!--- Tagline --->
+        <h1 class="tag text-center">What I Am ? Wanna To Become !</h1>
+
+        <!--- Future Self --->
+        <div class="side reach w-screen relative">
+          <div class="highlight h-full absolute -left-[100%]"></div>
+
+          <!--- Glitch Effect --->
+          <svg width="0" height="0">
+            <defs>
+              <filter id="waveFilter">
+                <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="turbulence"/>
+                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="10"/>
+              </filter>
+            </defs>
+          </svg>
+
+          <h2></h2>
+          <p></p>
+          <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2VvfGVufDB8fDB8fHww" alt="Future Avatar" class="bg-center bg-cover profile-image mt-2">
+        </div>
+        
+      </div>
+      
+    </section>
+
+    <!--- ✅ 3rd Section: Future Innovation & Menu --->
+    
+    <section class="h-screen relative overflow-hidden">
+      
+      <!--- Futuristic Design --->
+      
+      <div class="future w-full h-full bg-black overflow-hidden relative">
+        
+        <h1 class="inno absolute">Future Innovation</h1>
+        
+        <div class="stars"></div>
+        <div class="planet"></div>
+        <div class="nebula"></div>
+        <div class="meteor"></div>
+        
+        // mini discription
+        <div class="mini-description top-[20%] left-[20%] absolute  w-[15rem] h-[10rem] rounded-full z-[9] bg-red-500"></div>
+        
+        <div class="bubble-box overflow-hidden relative">
+          
+          <div class="bubble bubble1 rounded-full">
+            
+          </div>
+          <div class="bubble bubble2 rounded-full">
+            
+          </div>
+          <div class="bubble bubble3 rounded-full">
+            
+          </div>
+        </div>
+        
+        <div class="bubble-box overflow-hidden relative">
+          
+          <div class="bubble bubble4 rounded-full">
+            
+          </div>
+          <div class="bubble bubble5 rounded-full">
+            
+          </div>
+          <div class="bubble bubble6 rounded-full">
+            
+          </div>
+        </div>
+        
+        <!--- Menu --->
+        
+        <div class="openmenu absolute rounded-full bg-transparent flex flex-col items-center justify-center">
+        <h5 class="text-sm">Click To Open Menu</h5>
+        <i class="open ri-menu-line"></i>
+      </div>
+        
+      </div>
+      
+    </section>
+    
+  </div>
+  
+  <!--- Detailed Explaination Container --->
+        
+  <div class="bg-layer w-screen h-screen bg-black absolute text-white hidden">
+    <div class="w-full heading absolute top-0">
+      <div class="next">
+        <button type="button" class="bg-black rounded-full">
+                Next
+        </button>
+      </div>
+      <h1></h1>
+      <div class="close">
+        <i class="ri-close-line"></i>
+      </div>
+    </div>
+    <div class="w-full detailed absolute">
+      <p class="text-justify"></p>
+    </div>
+  </div>
+  
+  <!--- Menu Box --->
+  
+  <div class="menu relative w-screen overflow-hidden hidden">
+    <div class="stars"></div>
+    <div class="planet"></div>
+    <div class="nebula"></div>
+    <div class="meteor"></div>
+    <div class="openmenu bg-transparent absolute rounded-full flex flex-col justify-center items-center">
+        <h5>Click To Close</h5>
+        <i class="close ri-close-line"></i>
+      </div>
+    
+        <div class="sub-menu w-full h-full text-white">
+          <a class="skill text-center  rounded-full" href="skill.html">Skill</a>
+          <a class="about text-center rounded-full" href="about.html">About & Contact Us</a>
+          <a class="extra text-center rounded-full" href="extra.html">Extra Features</a>
+        </div>
+      </div>
+  
+  <!--- ✅ GSAP, Locomotive, and Custom JavaScript Files --->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
+  
+  <script type="module">
+    
+    // ✅ Three.js Library Import (3D Graphics ke liye)
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
+    
+    // ✅ GSAP Plugins Register (Smooth Animations ke liye)
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(TextPlugin);
+    
+    window.onload = function() {
+      
+      setTimeout(() => {
+        document.querySelector('.loading-container').style.opacity = '0';
+        setTimeout(() => {
+          document.querySelector('.loading-container').style.display = 'none';
+          
+          // Intro Text Animation (Welcome Text Animations)
+          (function textAnimation() {
+  gsap.to(".text-show", {
+    opacity: 1,
+    scale: 1,
+    rotate: 360,
+    duration: 3,
+    ease: "power2.out",
+    stagger: 0.1,
+    onComplete: function () {
+      gsap.to(".text-show", {
+        opacity: 0,
+        scale: 0,
+        rotate: -360,
+        duration: 3,
+        ease: "power2.out",
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: ".intro",
+          start: "top top",
+          end: "80% top",
+          toggleActions: "play reverse play reverse",
+          scrub: true
+        }
+      });
+
+      // ✅ Arrow Animation
+      gsap.to(".arrow", {
+        y: 5,
+        y: -5,
+        duration: 1,
+        ease: "power2.out",
+        repeat: -1,
+        yoyo: true,
+        color: "red",
+      });
+
+      // ✅ Glowing Text Effect
+      gsap.to(".glow-text", {
+        textShadow: "0px 0px 10px yellow",
+        y: 5,
+        y: -5,
+        duration: 1,
+        ease: "power2.out",
+        repeat: -1,
+        yoyo: true
+      });
+    }
+  });
+})();
+          
+        }, 500);
+      }, 4500); // Wait for rocket launch to finish
+      
+          // 3D Earth Function (3D Sphere Earth Render & Animation)
+          (function create3DEarth() {
+      // ✅ Scene, Camera, and Renderer Initialization
+      const scene = new THREE.Scene(); // 🎭 3D Scene Create
+      
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); // 🎥 Camera Define
+      camera.position.z = 3.25; // ✅ Camera ka position set
+    
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // ✅ Anti-aliasing & Transparency enabled
+      renderer.setSize(window.innerWidth, window.innerHeight); // ✅ Renderer ko window ke size ke equal set karo
+    
+      // ✅ Renderer ko webpage me inject karna
+      const canvasEarth = document.querySelector(".earth"); 
+      const { width, height } = canvasEarth.getBoundingClientRect();
+      renderer.setSize(width, height);
+      canvasEarth.replaceWith(renderer.domElement); // ✅ Earth Canvas ko replace karo
+      
+      // ✅ Background Transparent Set
+      scene.background = null;
+    
+      // ✅ Earth Shape (Sphere Geometry)
+      const geometry = new THREE.SphereGeometry(1, 130, 130);
+    
+      // ✅ Load Earth Texture (High-Quality Image Map)
+      const textureLoader = new THREE.TextureLoader();
+      const earthTexture = textureLoader.load(
+        'https://threejs.org/examples/textures/land_ocean_ice_cloud_2048.jpg',
+        function (texture) {
+          texture.flipY = false;
+          console.log("✅ Texture Loaded Successfully");
+        },
+        undefined,
+        function (error) {
+          console.error("❌ Error Loading Texture:", error);
+        }
+      );
+    
+      // ✅ Texture ko Sphere par Apply karo
+      const material = new THREE.MeshBasicMaterial({ map: earthTexture });
+      const earth = new THREE.Mesh(geometry, material);
+      scene.add(earth); // ✅ Earth Scene me Add
+    
+      // ✅ Lighting Setup
+      const light = new THREE.DirectionalLight(0xffffff, 1);
+      light.position.set(2, 2, 5);
+      scene.add(light);
+    
+      // ✅ Earth Rotate & Render Function
+      function animate() {
+        requestAnimationFrame(animate); // ✅ Animation Loop
+        earth.rotation.y += 0.02; // ✅ Earth Rotation Set
+        renderer.render(scene, camera); // ✅ Scene Render
+      }
+    
+      animate(); // ✅ Animation Start
+})();
+    
+          // Profile & Earth Bouncing Effect (Subtle Animation)
+          (function bounceProfileAndEarth() {
+  gsap.to(".pro", {
+    y: -10,
+    duration: 2,
+    ease: "power2.out",
+    repeat: -1,
+    yoyo: true
+  });
+})();
+    
+          // Home Icon Hover Effects (Interactive Hover Animations)
+          (function homeIconHoverEffect() {
+  let icon = document.querySelector(".home a");
+
+  icon.addEventListener("mouseenter", () => {
+    gsap.to(icon, {
+      backgroundColor: "red",
+      color: "white",
+      duration: 0.5,
+      ease: "power2.out",
+      yoyo: true
+    });
+  });
+})();
+    
+          // Tag Glow Effect (Neon Text Effect)
+          (function tagGlow() {
+  gsap.to(".tag", {
+    textShadow: "0px 0px 10px red",
+    duration: 0.8,
+    ease: "power2.out",
+    repeat: -1,
+    yoyo: true
+  });
+})();
+    
+          // Black Hole Animation (Transition Between Current & Future Me)
+          (function blackHoleAnimation() {
+  gsap.to([".black-hole .top", ".black-hole .bottom"], {
+    y: (i, target) => target.classList.contains("top") ? "-100%" : "100%", // Different animations based on class
+    duration: 1,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: ".black-hole",
+      start: "top 30%",
+      end: "top top",
+      scrub: true,
+      toggleActions: "play reverse play reverse"
+    },
+    onComplete: function () {
+      // ✅ Change Text on Scroll
+      gsap.to(".curr h2", { text: "Current Me", duration: 2, ease: "power2.out" });
+      gsap.to(".curr p", { text: "Software Engineer | Web Developer", duration: 2, ease: "power2.out" });
+
+      gsap.to(".reach h2", { text: "Future Me", duration: 2, ease: "power2.out" });
+      gsap.to(".reach p", { text: "Tech CEO | AI Visionary", duration: 2, ease: "power2.out" });
+
+      let lastScroll = 0;
+      ScrollTrigger.create({
+        trigger: ".black-hole",
+        start: "top top",
+        onUpdate: (self) => {
+          let currentScroll = self.scroll();
+          if (currentScroll > lastScroll) {
+            gsap.set(".container", { zIndex: 99 });
+          } else {
+            gsap.set(".container", { zIndex: "auto" });
+          }
+          lastScroll = currentScroll;
+        }
+      });
+    }
+  });
+})();
+
+          // Side Hover Effects (Smooth Side Animations)
+          (function sideHoverEffects() {
+  let positions = document.querySelectorAll(".side");
+
+  positions.forEach((side) => {
+    let highlight = side.querySelector(".highlight");
+
+    side.addEventListener("mouseenter", () => {
+      gsap.to(side, {
+        scale: 1.1,
+        duration: 0.4,
+        ease: "power2.out",
+        yoyo: true
+      });
+
+      gsap.to(highlight, {
+        width: "20px",
+        left: "100%",
+        duration: 0.6,
+        ease: "power2.out",
+        yoyo: true
+      });
+    });
+
+    side.addEventListener("mouseleave", () => {
+      gsap.to(side, { scale: 1, duration: 0.4, ease: "power2.out", yoyo: true });
+      gsap.to(highlight, { left: "-100%", duration: 0.6, ease: "power2.out", yoyo: true });
+    });
+  });
+})();
+    
+          // create buubles with text Dynamically
+          (function createBubbles() {
+    const bubbleTexts = [
+        { heading: "AI", paragraph: "Artificial intelligence (AI) is rapidly transforming our world, moving from science fiction to everyday reality. At its core, AI involves the development of computer systems capable of performing tasks that typically require human intelligence, such as learning, reasoning, and problem-solving. This is achieved through various techniques, including machine learning, deep learning, and neural networks, which enable machines to analyze vast amounts of data and identify patterns. The applications of AI are incredibly diverse. From powering search engines and personalized recommendations on streaming platforms to driving advancements in healthcare and autonomous vehicles, AI is reshaping industries and daily life. In healthcare, AI aids in disease diagnosis, drug discovery, and personalized treatment plans. In finance, it helps detect fraud and manage risk. Furthermore, AI-powered virtual assistants and chatbots are becoming increasingly common, providing personalized customer service and support.However, the rise of AI also brings ethical considerations and potential challenges. Concerns about job displacement, data privacy, and the potential for misuse of AI technologies are being actively discussed. It is crucial to develop AI systems that are transparent, accountable, and aligned with human values. As AI continues to evolve, it is essential to navigate its potential benefits and risks responsibly, ensuring that it serves to enhance human well-being and progress." },
+        { heading: "AI-Driven 4K Ultra", paragraph: "AI-driven 4K ultra web development represents a cutting-edge approach to creating immersive and highly functional online experiences. Leveraging artificial intelligence, developers can streamline workflows, enhance user interfaces, and deliver visually stunning websites optimized for ultra-high-definition displays. AI algorithms play a pivotal role in automating repetitive tasks, such as code generation, image optimization, and responsive design adjustments, freeing up developers to focus on more creative and strategic aspects of the project. In the realm of 4K ultra web development, AI facilitates the intelligent scaling and optimization of high-resolution images and videos, ensuring they load quickly and seamlessly across various devices and screen sizes. Machine learning models can analyze user behavior and preferences, enabling personalized content delivery and interface customization. AI-powered tools can also assist in detecting and rectifying code errors, improving website performance, and enhancing security. Furthermore, AI contributes to creating dynamic and interactive web elements, such as chatbots, virtual assistants, and personalized recommendations. These features enhance user engagement and provide a more intuitive and responsive browsing experience. With the increasing availability of 4K displays, AI-driven development is crucial for delivering visually captivating websites that fully utilize the enhanced resolution, resulting in richer, more detailed, and more immersive online experiences. As AI continues to advance, its integration into web development will further revolutionize how websites are designed, built, and experienced." },
+        { heading: "AI-Powered Smart Cities", paragraph: "AI-powered smart cities represent a paradigm shift in urban planning and management, aiming to enhance the quality of life for citizens while optimizing resource utilization. At the heart of this concept is the integration of artificial intelligence into various city systems, enabling data-driven decision-making and automated processes. These smart cities leverage sensors, IoT devices, and advanced algorithms to collect and analyze real-time data, transforming it into actionable insights. One of the key applications of AI in smart cities is traffic management. AI-powered systems can analyze traffic patterns, predict congestion, and optimize traffic light timings, reducing commute times and fuel consumption. Similarly, smart energy grids can use AI to balance supply and demand, reducing energy waste and promoting renewable energy integration. In public safety, AI-powered surveillance systems can detect anomalies and predict crime hotspots, enabling faster response times. Furthermore, smart cities utilize AI to improve waste management, optimize public transportation, and enhance infrastructure maintenance. AI-driven systems can monitor waste levels, optimize collection routes, and predict infrastructure failures, minimizing disruptions and reducing costs. Citizen engagement is also enhanced through AI-powered platforms that provide real-time information, personalized services, and interactive feedback mechanisms. However, the development of AI-powered smart cities also raises concerns about data privacy, security, and equity. It is crucial to implement robust data protection measures and ensure that the benefits of smart city technologies are accessible to all citizens, regardless of their socioeconomic background. As cities continue to grow and face increasing challenges, AI offers promising solutions for creating more sustainable, efficient, and livable urban environments." },
+        { heading: "Quantum Computing", paragraph: "Quantum computing represents a paradigm shift in computation, moving away from the classical bits of 0s and 1s to the quantum bits, or qubits. These qubits, leveraging the principles of quantum mechanics, can exist in a state of superposition, meaning they can be 0 and 1 simultaneously. This, coupled with entanglement, where qubits become interconnected and their fates intertwined, allows quantum computers to perform certain calculations exponentially faster than their classical counterparts. The potential of quantum computing is vast, promising to revolutionize fields like cryptography, materials science, and drug discovery. In cryptography, quantum computers threaten to break existing encryption methods, while also paving the way for more secure, quantum-resistant ones. In materials science, they can simulate complex molecular interactions, leading to the development of novel materials with desired properties. In pharmaceuticals, quantum simulations can accelerate drug discovery by accurately modeling molecular behavior. However, quantum computing is still in its nascent stages. Building and maintaining stable qubits is incredibly challenging, requiring extremely low temperatures and precise control. Error correction is also a significant hurdle, as qubits are highly susceptible to noise. Despite these challenges, the field is rapidly advancing, with major tech companies and research institutions investing heavily in quantum hardware and software development. The journey to fully realized, fault-tolerant quantum computers is ongoing, but the potential rewards are immense, promising to unlock solutions to some of humanity's most complex problems." },
+        { heading: "Neural AI Assistant", paragraph: "Neural AI assistants represent a significant leap forward in the realm of artificial intelligence, leveraging the power of neural networks to create more intuitive and human-like interactions. These assistants, often powered by deep learning models, are designed to understand and respond to complex natural language queries, going beyond simple keyword matching. They are capable of learning from vast datasets, allowing them to personalize responses, anticipate user needs, and engage in more nuanced conversations. Unlike traditional AI assistants that rely on pre-programmed rules, neural AI assistants can adapt and improve over time, refining their understanding of language and context. This allows them to handle a wider range of tasks, from scheduling appointments and providing information to generating creative content and offering personalized recommendations. Their ability to process and interpret complex language structures enables them to understand the intent behind user requests, leading to more accurate and relevant responses. The development of neural AI assistants is driven by advancements in natural language processing (NLP) and machine learning. These assistants are increasingly integrated into various platforms, including smartphones, smart speakers, and online services, becoming integral to daily life. As they continue to evolve, neural AI assistants are expected to play a more prominent role in areas such as customer service, education, and healthcare, providing personalized support and enhancing human-computer interaction. However, the ethical considerations regarding data privacy and potential bias must be addressed to ensure their responsible and beneficial deployment." },
+        { heading: "BCI", paragraph: "Brain-computer interfaces (BCIs) represent a cutting-edge field of research that aims to establish a direct communication pathway between the human brain and external devices. These systems hold immense potential for revolutionizing how we interact with technology, particularly for individuals with severe motor disabilities. At its core, a BCI system works by recording and interpreting brain activity. This is typically achieved through various techniques, including electroencephalography (EEG), which measures electrical activity on the scalp, or more invasive methods that involve implanting electrodes directly into the brain. The recorded brain signals are then processed and translated into commands that can control external devices, such as computers, robotic limbs, or communication systems. The potential applications of BCIs are vast and transformative. For individuals with conditions like amyotrophic lateral sclerosis (ALS) or spinal cord injuries, BCIs can provide a means of communication and control, restoring a sense of independence and improving their quality of life. Beyond medical applications, BCIs are also being explored for use in areas such as gaming, virtual reality, and even enhancing human cognitive abilities. However, the development of BCIs also raises important ethical considerations. Issues such as data privacy, security, and the potential for misuse of this technology must be carefully addressed. As research progresses and BCIs become more sophisticated, it is crucial to ensure that these technologies are developed and used responsibly, with a focus on maximizing their benefits while minimizing potential risks." }
+    ];
+
+    for (let i = 1; i <= 6; i++) {
+        createSingleBubble(i);
+    }
+
+    function createSingleBubble(index) {
+        // **Scene Setup**
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+        let bubblebox = document.querySelector(`.bubble${index}`);
+        if (!bubblebox) return;
+
+        const { width, height } = bubblebox.getBoundingClientRect();
+        renderer.setSize(width, height);
+        bubblebox.replaceWith(renderer.domElement);
+
+        // **Lighting**
+        const light1 = new THREE.PointLight(0xff00ff, 1, 100);
+        light1.position.set(5, 5, 5);
+        scene.add(light1);
+
+        const light2 = new THREE.PointLight(0x00ffff, 1, 100);
+        light2.position.set(-5, -5, -5);
+        scene.add(light2);
+
+        // **Bubble Geometry**
+        const bubbleMaterial = new THREE.MeshPhysicalMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.8,
+            roughness: 0.1,
+            metalness: 0.8,
+            emissive: 0x5500ff,
+            emissiveIntensity: 0.5,
+            clearcoat: 1
+        });
+
+        const bubble = new THREE.Mesh(new THREE.SphereGeometry(1, 64, 64), bubbleMaterial);
+        scene.add(bubble);
+
+        // **Create Text Texture**
+        function createTextTexture(text) {
+            const textCanvas = document.createElement("canvas");
+            textCanvas.width = 512;
+            textCanvas.height = 256;
+            const ctx = textCanvas.getContext("2d");
+
+            ctx.clearRect(0, 0, textCanvas.width, textCanvas.height);
+            ctx.fillStyle = "white";
+            ctx.font = "Bold 50px Arial";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(text, textCanvas.width / 2, textCanvas.height / 2);
+
+            const textTexture = new THREE.CanvasTexture(textCanvas);
+            textTexture.needsUpdate = true;
+            return textTexture;
+        }
+
+        // **Add Text Sprite**
+        const spriteMaterial = new THREE.SpriteMaterial({
+            map: createTextTexture(bubbleTexts[index - 1].heading),
+            transparent: true
+        });
+
+        const textSprite = new THREE.Sprite(spriteMaterial);
+        textSprite.scale.set(1.5, 0.75, 1);
+        textSprite.position.set(0, 0, 1.1);
+        scene.add(textSprite);
+
+        camera.position.z = 3;
+
+        // **Squash & Stretch Animation**
+        function squashBubble() {
+            gsap.to(bubble.scale, {
+                duration: 1,
+                y: 0.5,
+                repeat: 1,
+                yoyo: true,
+                ease: "elastic.out(1, 0.3)",
+                onComplete: squashBubble
+            });
+        }
+        squashBubble();
+
+        // **Render Loop**
+        function animate() {
+            requestAnimationFrame(animate);
+            bubble.rotation.y += 0.01;
+            bubble.rotation.x += 0.005;
+            renderer.render(scene, camera);
+        }
+        animate();
+        
+        // Select All Bubbles
+var bubblesbox = document.querySelectorAll(".bubble-box");
+
+// **Bubble Movement Animation**
+var bubblemoving = gsap.to(bubblesbox, {
+    x: "-50%", // Using `x` for better performance instead of `left`
+    duration: 5,
+    ease: "power2.out",
+    yoyo: true,
+    repeat: -1
+});
+
+// **Mini Description Element**
+let mini = document.querySelector(".mini-description");
+
+// **Bubble Hover Event (Fixed)**
+
+let minidetails = [
+  "",
+  "",
+  "",
+  "",
+  "",
+  ""];
+
+renderer.domElement.addEventListener("mouseenter", (event) => {
+  mini.textContent = minidetails[index];
+  // Position & Show Mini Description
+  positionBubble(event);
+  gsap.to(mini, {
+    display:"block",
+    duration: 0.1,
+    ease: "power2.out"
+  });
+})
+
+renderer.domElement.addEventListener("mousemove", (event) => {
+   positionBubble(event);
+});
+
+renderer.domElement.addEventListener("mouseleave",() => {
+  // Hide Mini Description
+  gsap.to(mini, {
+    display:"none",
+    duration: 0.1,
+    ease: "power2.out"
+  });
+});
+
+function positionBubble(event) {
+  let x = event.clientX;
+  let y = event.clientY;
+  mini.style.left = `${x -113}px`;
+  mini.style.top = `${y-150}px`; // ✅ Position above the element
+}
+
+bubblesbox.forEach(bubble => {
+    bubble.addEventListener("mouseenter", (event) => {
+        bubblemoving.pause(); // ✅ Stops movement on hover
+    });
+
+    bubble.addEventListener("mouseleave", () => {
+        bubblemoving.resume(); // ✅ Continues from where it stopped
+    });
+});
+// **Bubble Click Event**
+renderer.domElement.addEventListener("click", () => {
+            var layer = document.querySelector(".bg-layer");
+            var h1 = document.querySelector(".heading h1");
+            var p = document.querySelector(".detailed p");
+        
+            // Set text dynamically
+            h1.textContent = bubbleTexts[index - 1].heading;
+            p.textContent = bubbleTexts[index - 1].paragraph;
+            
+            let currScrollPosition = window.scrollY;
+            
+            // **Hide .main smoothly**
+            gsap.to(".main", { 
+              display:"none",
+              duration:.05,
+              ease:"power2.out"
+            });
+            
+            // ** Show Layer smoothly **
+            gsap.to(layer, { 
+              display:"block", 
+              duration: 0.05,
+              ease:"power2.out"
+            });
+            
+            // Click on Close icon
+            document.querySelector(".close i").addEventListener("click", () => {
+              
+              // Show Main Container
+              gsap.to(".main", {
+                display:"block", 
+                duration: 0.05,
+                ease:"power2.out"
+              });
+              
+              // Restore scroll Position
+              setTimeout(() => {
+                requestAnimationFrame(() => {
+                    window.scrollTo(0, currScrollPosition);
+                });
+            }, 50); // ✅ Tiny delay ensures browser has time to render
+              
+              // Hide Layer
+              gsap.to(layer, {
+                display:"none", 
+                duration: 0.05,
+                ease:"power2.out"
+              });
+               
+            });
+        });
+        
+        // **Resize Event**
+        window.addEventListener("resize", () => {
+            const { width, height } = bubblebox.getBoundingClientRect();
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+    }
+})();
+    
+          // **Menu Animation**
+          (() => {
+    const menuOpenIcon = document.querySelector(".openmenu .open");
+    const menuCloseIcon = document.querySelector(".openmenu .close");
+    const menu = document.querySelector(".menu");
+    const main = document.querySelector(".main");
+    let lastScrollPosition = 0;
+    let menuOpen = false
+    
+    gsap.from(".openmenu", { y: "-100%", duration: 2, yoyo: true, repeat: -1, ease: "power2.out" });
+    
+    // **Function to Open Menu**
+    function openMenu() {
+            lastScrollPosition = window.scrollY; // Store current scroll position
+    
+            // Hide `.main` smoothly
+            gsap.to(main, {
+                duration: 0.003,
+                onComplete: () => {
+                    main.style.display = "none"; // ✅ Hide main content
+                }
+            });
+    
+            // Show Menu
+            gsap.set(menu, { display: "block"});
+    
+            menuOpen = true;
+    
+            // Animate next page text (Open Animation)
+            gsap.from(".skill", {
+                x: -500,
+                duration: 1.5,
+                ease: "power2.out"
+            });
+            gsap.from(".about", {
+                x: 500,
+                duration: 1.5,
+                ease: "power2.out"
+            });
+            gsap.from(".extra", {
+                y: 500,
+                duration: 1.5,
+                ease: "power2.out"
+            });
+        }
+    
+    // **Function to Close Menu**
+    function closeMenu() {
+        gsap.to(".menu .skill", {
+            x: -500,
+            duration: 1.5,
+            ease: "power2.out"
+        });
+    
+        gsap.to(".menu .about", {
+            x: 500,
+            duration: 1.5,
+            ease: "power2.out"
+        });
+    
+        gsap.to(".menu .extra", {
+            y: 500,
+            duration: 1.5,
+            ease: "power2.out",
+            onComplete: function() {
+                // Reset all elements to default position
+                gsap.set(".menu .skill", { x: 0 });
+                gsap.set(".menu .about", { x: 0 });
+                gsap.set(".menu .extra", { y: 0 });
+    
+                // Show main section and hide menu
+                document.querySelector(".main").style.display = "block";
+                document.querySelector(".menu").style.display = "none";
+    
+                // Restore scroll position
+                window.scrollTo(0, lastScrollPosition);
+            }
+        });
+    }
+    
+    // **Click Events**
+    if (menuOpenIcon) menuOpenIcon.addEventListener("click", openMenu);
+    if (menuCloseIcon) menuCloseIcon.addEventListener("click", closeMenu);
+    
+    gsap.to(".inno",{
+      scale:.5,
+      duration:.5,
+      ease:"power2.out",
+      repeat:-1,
+      yoyo:true
+    });
+    
+})();
+          
+        };
+    
+  </script>
+
+</body>
+</html>
