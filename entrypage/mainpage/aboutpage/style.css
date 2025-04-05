@@ -48,7 +48,7 @@
     @keyframes launch {
       0% { transform: translateY(0); }
       90% { transform: translateY(-90vh); }
-      100% { transform: translateY(-150vh); opacity: 0; }
+      100% { transform: translateY(-150vh); }
     }
       
     /*---- (1) section ---- */
