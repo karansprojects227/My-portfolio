@@ -236,7 +236,7 @@
     });
   });
 })();
-    
+          
           // create buubles with text Dynamically
           (function createBubbles() {
     const bubbleTexts = [
@@ -470,7 +470,7 @@ renderer.domElement.addEventListener("click", () => {
         });
     }
 })();
-    
+          
           // **Menu Animation**
           (() => {
     const menuOpenIcon = document.querySelector(".openmenu .open");
@@ -565,6 +565,67 @@ renderer.domElement.addEventListener("click", () => {
     
 })();
           
+          // **Ai Speak button Animation**
+          (function animateGalaxyContainer() {
+    const tl = gsap.timeline({
+      repeat: -1, // infinite loop
+      repeatDelay: 10 // har loop ke baad 10s delay
+    });
+
+    tl.fromTo(".galaxy-container", 
+      { scale: 0, opacity: 0 }, 
+      { scale: 1, opacity: 1, duration: 2, ease: "power2.out" } // appear
+    )
+    .to(".galaxy-container", 
+      { duration: 5, scale: 1, opacity: 1 } // 5 seconds static
+    )
+    .to(".galaxy-container", 
+      { scale: 0, opacity: 0, duration: 2, ease: "power2.in" } // disappear
+    );
+  })();
+          let isSpeak = false;
+          // **Ai Speak**
+          document.querySelector(".hyper-tech-btn").addEventListener("click", () => {
+            isSpeak = true;
+            if(isSpeak){
+              gsap.set(".wait",{
+                display:"block"
+              });
+              gsap.from(".wait",{
+                opacity:0,
+                duration:1,
+                ease:"power2.out",
+                repeat:-1,
+                yoyo:true
+              });
+            setTimeout(function(){
+              gsap.set(".wait",{
+                display:"none"
+              });
+              (function speakText(paraId) {
+    const paragraph = document.getElementById(paraId).innerText;
+
+    // Stop previous speech if any
+    window.speechSynthesis.cancel();
+
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(paragraph);
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      utterance.lang = 'en-US';
+      speechSynthesis.speak(utterance);
+    } else {
+      alert("Sorry, your browser doesn't support text to speech!");
+    }
+  })("para1"); // <-- Pass correct paragraph ID here
+            },25000);
+            }
+          });
+          
+          // stop Ai Speak logic
+          document.querySelector(".bg-layer .close i").addEventListener("click", () => {
+            window.speechSynthesis.cancel();
+          });
         };
 
 // *** End Scripting ***

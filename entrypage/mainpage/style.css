@@ -389,6 +389,16 @@
       z-index:999;
       background:#0f172a;
     }
+    .bg-layer .wait{
+      font-size:10rem;
+      top:50%;
+      transform:translateY(-50%);
+      z-index:9;
+      line-height:8rem;
+      color: rgba(191, 0, 255, 1);  /* Neon Purple */
+      text-shadow: 0 0 10px rgba(191, 0, 255, 0.8), 
+                   0 0 20px rgba(191, 0, 255, 0.6);
+    }
     .bg-layer .heading{
       height:10%;
       top:0;
@@ -400,6 +410,129 @@
     .bg-layer .heading h1{
       font-size:2rem;
     }
+  .galaxy-container {
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:transparent;
+    z-index:9;
+  }
+  .stars-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    animation: starsMove 60s linear infinite;
+    z-index: 0;
+  }
+  @keyframes starsMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-500px, 500px); }
+  }
+  /* Button Container */
+  .hyper-button-container {
+    position: relative;
+    z-index: 3;
+  }
+  .outer-glow-ring, .inner-glow-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotateRings 8s infinite linear;
+  }
+  .outer-glow-ring {
+    width: 350px;
+    height: 350px;
+    border-top: 3px solid #00c3ff;
+    box-shadow: 0 0 50px #00c3ff88;
+  }
+  .inner-glow-ring {
+    width: 250px;
+    height: 250px;
+    border-top: 3px solid #ff00f7;
+    animation-duration: 6s;
+    box-shadow: 0 0 40px #ff00f7aa;
+  }
+  @keyframes rotateRings {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  /* Hyper-Tech Button */
+  .hyper-tech-btn {
+    position: relative;
+    padding: 20px 70px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow:
+      0 0 25px #ff00f7,
+      0 0 50px #00c3ff,
+      inset 0 0 15px #ffffff33;
+    z-index: 2;
+    transition: 0.4s ease-in-out;
+  }
+  .hyper-tech-btn span {
+    background: linear-gradient(90deg, #ff00f7, #00c3ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  /* Floating Particle Animation */
+  .floating-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #00c3ff;
+    border-radius: 50%;
+    animation: particleMovement 4s ease-in-out infinite;
+    box-shadow: 0 0 15px #00c3ff88;
+  }
+  .floating-particle:nth-child(1) {
+    top: -40px;
+    left: 50%;
+    animation-delay: 1s;
+  }
+  .floating-particle:nth-child(2) {
+    top: 30px;
+    right: 60px;
+    animation-delay: 2.5s;
+  }
+  .floating-particle:nth-child(3) {
+    top: 80px;
+    left: -50px;
+    animation-delay: 3.5s;
+  }
+  @keyframes particleMovement {
+    0% { transform: translateY(0px) scale(1); opacity: 1; }
+    50% { transform: translateY(-30px) scale(1.2); opacity: 0.6; }
+    100% { transform: translateY(0px) scale(1); opacity: 1; }
+  }
+  /* Button Hover Effects */
+  .hyper-tech-btn:hover {
+    transform: scale(1.1);
+    box-shadow:
+      0 0 40px #ff00f7aa,
+      0 0 100px #00c3ffaa,
+      inset 0 0 25px #ffffff66;
+    transition: 0.3s ease-out;
+  }
     .bg-layer .heading .close{
       font-size:1rem;
     }
